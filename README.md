@@ -101,9 +101,9 @@ NODE_ENV=development
 ```bash
 npm install
 
-npx prisma generate
-
 npx prisma migrate dev
+
+npx prisma generate
 
 npm run dev
 
