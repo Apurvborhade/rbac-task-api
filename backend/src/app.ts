@@ -1,9 +1,15 @@
 import express from 'express';
+import cors from 'cors';
+import authRouter from './routes/authRoutes'
 
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send('Hello World');
-});
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
+
+// Routes
+app.use('/api/v1/auth', authRouter);
+
 
 export default app;
