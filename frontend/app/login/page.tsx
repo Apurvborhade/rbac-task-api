@@ -87,15 +87,6 @@ export default function Login() {
           required
         />
 
-        {/* Remember Me */}
-        <div className="flex items-center gap-3 text-sm text-neutral-500">
-          <input
-            type="checkbox"
-            className="w-4 h-4 accent-white"
-          />
-          <span>Remember me</span>
-        </div>
-
         {/* Submit Button */}
         <button
           type="submit"

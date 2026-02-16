@@ -27,7 +27,6 @@ export async function signinUser(email: string, password: string, user: User) {
 
     const isMatch = await bcrypt.compare(password, user.password);
 
-    console.log(isMatch)
     if (!isMatch) {
         throw new AppError(401, "Invalid credentials");
     }
