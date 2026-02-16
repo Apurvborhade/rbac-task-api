@@ -129,6 +129,45 @@ http://localhost:PORT/api-docs
 
 
 # Scalability Considerations
+### ⚡ Redis Caching
+- Implemented Redis caching for `GET /tasks` endpoint
+- Role-based cache keys:
+  - `tasks:admin`
+  - `tasks:user:{userId}`
+- Automatic cache invalidation on:
+  - Task creation
+  - Task update
+  - Task deletion
+- TTL-based expiration to prevent stale data
+- Reduces database load and improves response time
+
+
+- **Redis** (Caching Layer)
+
+---
+
+REDIS_URL=redis://localhost:6379
+
+---
+
+# ⚡ Redis Caching Strategy
+
+To optimize performance:
+
+- `GET /tasks` responses are cached in Redis
+- Role-based cache separation for ADMIN and USER
+- Cache invalidated on write operations (Create/Update/Delete)
+- TTL-based expiration to ensure fresh data
+
+---
+
+### Implemented Scalability Features
+
+- Stateless JWT authentication
+- Redis caching for read-heavy endpoints
+- Role-based query filtering
+- Modular service structure
+- Dockerized environment
 
 ### This application is designed with modular layered architecture:
 
@@ -138,7 +177,6 @@ Routes → Controllers → Services → Database
 
 ### Future scalability improvements:
 	-	Horizontal scaling behind load balancer
-	-	Redis caching for read-heavy endpoints
 	-	Separate Auth and Task services into microservices
 	-	Database indexing & read replicas
 	-	Container orchestration using Kubernetes
