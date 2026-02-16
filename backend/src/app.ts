@@ -1,5 +1,6 @@
 import express from 'express';
 import cors from 'cors';
+import adminOnlyRoutes from './routes/adminOnlyRoute.js'
 import authRouter from './routes/authRoutes.js'
 import cookieParser from 'cookie-parser';
 
@@ -13,5 +14,6 @@ app.use(cookieParser())
 // Routes
 app.use('/api/v1/auth', authRouter);
 
+app.use('/api/v1/admin', adminOnlyRoutes)
 
 export default app;

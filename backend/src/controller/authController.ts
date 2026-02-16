@@ -7,6 +7,7 @@ import { prisma } from "../utils/prisma.js";
 export async function registerUser(req: Request, res: Response, next: NextFunction) {
     // Register
     const { email, password, role } = req.body;
+
     try {
         if (!email) {
             throw new AppError(400, "Please enter an email address")
@@ -14,11 +15,15 @@ export async function registerUser(req: Request, res: Response, next: NextFuncti
         if (!password) {
             throw new AppError(400, "Please enter a password")
         }
-        if (role) {
+        if (!role) {
             throw new AppError(400, "Please select a user role")
         }
 
+        const userAlreadyExists = await prisma.user.findUnique({ where: { email } });
 
+        if (userAlreadyExists) {
+            throw new AppError(400, "User Already Exists")
+        }
         const hashedPassword = await hashPassword(password);
 
         if (!hashedPassword) {
