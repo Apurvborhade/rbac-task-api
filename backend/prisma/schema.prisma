@@ -24,5 +24,15 @@ model User {
   password  String
   role      Role     @default(USER)
   createdAt DateTime @default(now())
+   tasks     Task[]   
 }
 
+
+model Task {
+  id        String   @id @default(uuid())
+  title     String
+  completed Boolean  @default(false)
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  createdAt DateTime @default(now())
+}

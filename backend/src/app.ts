@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import adminOnlyRoutes from './routes/adminOnlyRoute.js'
 import authRouter from './routes/authRoutes.js'
+import taskRoutes from './routes/taskRoutes.js'
 import cookieParser from 'cookie-parser';
 
 const app = express();
@@ -19,5 +20,7 @@ app.use(cookieParser())
 app.use('/api/v1/auth', authRouter);
 
 app.use('/api/v1/admin', adminOnlyRoutes)
+
+app.use('/api/v1/tasks', taskRoutes)
 
 export default app;
