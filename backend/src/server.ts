@@ -1,10 +1,10 @@
-import app from './app';
+import app from './app.js';
 import dotenv from 'dotenv';
 
 dotenv.config();
 
-import { PORT } from './utils/constants';
-import { errorMiddleware } from './middleware/error.middleware';
+import { PORT } from './utils/constants.js';
+import { errorMiddleware } from './middleware/error.middleware.js';
 
 
 app.use(errorMiddleware);

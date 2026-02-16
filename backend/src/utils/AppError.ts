@@ -1,4 +1,4 @@
-import { NODE_ENV } from './constants';
+import { NODE_ENV } from './constants.js';
 
 class AppError extends Error {
     public status: string;

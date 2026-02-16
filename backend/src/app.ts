@@ -1,6 +1,6 @@
 import express from 'express';
 import cors from 'cors';
-import authRouter from './routes/authRoutes'
+import authRouter from './routes/authRoutes.js'
 
 const app = express();
 

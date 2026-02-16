@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { NODE_ENV } from "../utils/constants";
+import { NODE_ENV } from "../utils/constants.js";
 
 export const errorMiddleware = (err: any, req: Request, res: Response, next: NextFunction) => {
     err.statusCode = err.statusCode || 500;
