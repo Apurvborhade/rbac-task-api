@@ -80,6 +80,7 @@ backend/
 
 Create a `.env` file in the root:
 
+- backend/
 ```
 PORT=BACKEND_PORT
 DATABASE_URL=postgresql://username:password@host:5432/dbname
@@ -87,7 +88,11 @@ JWT_SECRET=your_jwt_secret
 FRONTEND_URL=http://localhost:3000
 NODE_ENV=development
 
+```
 
+- frontend/
+```
+NEXT_PUBLIC_BACKEND_URL=http://localhost:8000/api/v1
 ```
 
 > If using Docker with local Postgres, use `host.docker.internal` instead of `localhost`.
