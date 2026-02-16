@@ -7,8 +7,10 @@ import AuthCard from "../components/AuthCard";
 
 export default function Register() {
   const router = useRouter();
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [role, setRole] = useState("USER");
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
 
@@ -18,7 +20,12 @@ export default function Register() {
     setLoading(true);
 
     try {
-      await api.post("/auth/register", { email, password });
+      await api.post("/auth/register", {
+        email,
+        password,
+        role,
+      });
+
       router.push("/dashboard");
     } catch (err: any) {
       setError(err.response?.data?.message || "Something went wrong");
@@ -46,16 +53,9 @@ export default function Register() {
           type="email"
           placeholder="Email"
           className="
-            w-full
-            rounded-xl
-            bg-black
-            border border-neutral-800
-            px-4 py-4
-            text-white
-            placeholder-neutral-600
-            focus:outline-none
-            focus:border-white
-            transition
+            w-full rounded-xl bg-black border border-neutral-800
+            px-4 py-4 text-white placeholder-neutral-600
+            focus:outline-none focus:border-white transition
           "
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -67,38 +67,38 @@ export default function Register() {
           type="password"
           placeholder="Password"
           className="
-            w-full
-            rounded-xl
-            bg-black
-            border border-neutral-800
-            px-4 py-4
-            text-white
-            placeholder-neutral-600
-            focus:outline-none
-            focus:border-white
-            transition
+            w-full rounded-xl bg-black border border-neutral-800
+            px-4 py-4 text-white placeholder-neutral-600
+            focus:outline-none focus:border-white transition
           "
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           required
         />
 
-        {/* Submit Button */}
+        {/* Role Select */}
+        <select
+          value={role}
+          onChange={(e) => setRole(e.target.value)}
+          className="
+            w-full rounded-xl bg-black border border-neutral-800
+            px-4 py-4 text-white
+            focus:outline-none focus:border-white transition pr-3
+          "
+        >
+          <option value="USER">USER</option>
+          <option value="ADMIN">ADMIN</option>
+        </select>
+
+        {/* Submit */}
         <button
           type="submit"
           disabled={loading}
           className="
-            w-full
-            rounded-xl
-            bg-white
-            text-black
-            py-4
-            font-semibold
-            tracking-wide
-            hover:opacity-90
-            active:scale-[0.98]
-            transition
-            disabled:opacity-60
+            w-full rounded-xl bg-white text-black
+            py-4 font-semibold tracking-wide
+            hover:opacity-90 active:scale-[0.98]
+            transition disabled:opacity-60 
           "
         >
           {loading ? "Creating Account..." : "Create Account"}

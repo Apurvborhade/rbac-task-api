@@ -18,9 +18,13 @@ export default function Login() {
     setLoading(true);
 
     try {
-      await api.post("/auth/login", { email, password });
-      router.push("/dashboard");
+      const loginRes = await api.post("/auth/login", { email, password });
+
+      if (loginRes.data.success) {
+        router.push("/dashboard");
+      }
     } catch (err: any) {
+      console.log(err)
       setError(err.response?.data?.message || "Invalid credentials");
     } finally {
       setLoading(false);
