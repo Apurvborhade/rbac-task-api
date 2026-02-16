@@ -3,9 +3,8 @@ import dotenv from 'dotenv';
 
 dotenv.config();
 
-import { PORT } from './utils/constants.js';
+import {  PORT } from './utils/constants.js';
 import { errorMiddleware } from './middleware/error.middleware.js';
-
 
 app.use(errorMiddleware);
 
