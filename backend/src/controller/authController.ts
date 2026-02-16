@@ -3,6 +3,7 @@ import AppError from "../utils/AppError.js";
 import { createUser, hashPassword, signinUser } from "../services/authService.js";
 import { signToken } from "../utils/jwt.js";
 import { prisma } from "../utils/prisma.js";
+import { AuthRequest } from "../middleware/auth.middleware.js";
 
 export async function registerUser(req: Request, res: Response, next: NextFunction) {
     // Register
@@ -95,3 +96,36 @@ export async function loginUser(req: Request, res: Response, next: NextFunction)
         next(error)
     }
 }
+export const getMe = async (req: AuthRequest, res: Response) => {
+    try {
+        const userId = req.user?.id;
+
+        if (!userId) {
+            return res.status(401).json({ message: "Unauthorized" });
+        }
+
+        const user = await prisma.user.findUnique({
+            where: { id: userId },
+            select: {
+                id: true,
+                email: true,
+                role: true,
+                createdAt: true,
+            },
+        });
+
+        if (!user) {
+            return res.status(404).json({ message: "User not found" });
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: user,
+        });
+    } catch (error) {
+        return res.status(500).json({
+            success: false,
+            message: "Failed to fetch user",
+        });
+    }
+};
