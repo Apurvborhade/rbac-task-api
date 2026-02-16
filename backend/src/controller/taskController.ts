@@ -37,7 +37,7 @@ export const getTasks = async (req: AuthRequest, res: Response) => {
 
 
 export const updateTask = async (req: AuthRequest, res: Response) => {
-  const { id } = req.params;
+  const id = req.params.id as string;
   const { title, completed } = req.body;
 
   const task = await prisma.task.findUnique({ where: { id } });
@@ -46,7 +46,7 @@ export const updateTask = async (req: AuthRequest, res: Response) => {
     return res.status(404).json({ message: "Task not found" });
   }
 
-  
+
   if (
     task.userId !== req.user!.id &&
     req.user!.role !== "ADMIN"
@@ -64,7 +64,7 @@ export const updateTask = async (req: AuthRequest, res: Response) => {
 
 // DELETE (Admin only)
 export const deleteTask = async (req: AuthRequest, res: Response) => {
-  const { id } = req.params;
+  const id = req.params.id as string;
 
   await prisma.task.delete({ where: { id } });
 

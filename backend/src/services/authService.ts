@@ -3,7 +3,7 @@ import { prisma } from '../utils/prisma.js';
 import { User } from '../types.js';
 import AppError from '../utils/AppError.js';
 import { signToken } from '../utils/jwt.js';
-import { Role } from '../../generated/prisma/enums.js';
+import { Role } from '@prisma/client/index.js';
 
 const SALT_ROUNDS = 10;
 
