@@ -1,12 +1,9 @@
+import { Role } from "../generated/prisma/enums.js"
 
-export enum Role {
-    USER,
-    ADMIn
-}
 export type User = {
     id: any,
     email: string,
     password: string,
-    role: string,
+    role: Role,
     createdAt: any
 }

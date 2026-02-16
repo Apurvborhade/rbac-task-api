@@ -1,6 +1,9 @@
 import bcrypt from 'bcrypt'
 import { prisma } from '../utils/prisma.js';
-import { Role } from '../types.js';
+import { User } from '../types.js';
+import AppError from '../utils/AppError.js';
+import { signToken } from '../utils/jwt.js';
+import { Role } from '../../generated/prisma/enums.js';
 
 const SALT_ROUNDS = 10;
 
@@ -19,6 +22,20 @@ export async function createUser(email: string, hashedPassword: string, role?: R
         return user
     } catch (error) {
         console.log("Error (User create): ", error)
+    }
+}
+
+export async function signinUser(email: string, password: string, user: User) {
+    try {
+        const isMatch = await bcrypt.compare(password, user.password);
+
+        if (!isMatch) {
+            throw new AppError(401, "Invalid credentials");
+        }
+        return signToken({ id: user.id, role: user.role })
+        
+    } catch (error) {
+        console.log("Error: (Could'nt Signin user): ", error)
     }
 }
 
